@@ -1,0 +1,10 @@
+version: "3"
+
+tasks:
+    build:
+        cmds:
+            - docker build -t nltk .
+
+    run:
+        cmds:
+            - docker run -v $(pwd)/volume:/root/volume --workdir="/root/volume" --rm nltk /bin/bash -c "python generate-nouns.py"

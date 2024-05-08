@@ -1,0 +1,6 @@
+version: '3'
+
+tasks:
+    run:
+        cmds:
+            - docker run -v $(pwd)/volume:/root/volume --workdir="/root/volume" --rm node:19-alpine /bin/sh -c "node change.js"

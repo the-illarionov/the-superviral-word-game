@@ -1,0 +1,23 @@
+{
+  "en": {
+    "waiting-somebody": "Waiting for enemy to connect...",
+    "waiting-enemy": "Waiting for enemy to be ready...",
+    "i-ready": "I am ready!",
+    "enemy-ready": "Enemy is ready",
+    "enemy-not-ready": "Enemy is not ready"
+  },
+  "ru": {
+    "waiting-somebody": "Ждём, когда противник подключится...",
+    "waiting-enemy": "Ждём, когда противник будет готов...",
+    "i-ready": "Я готов!",
+    "enemy-ready": "Противник готов",
+    "enemy-not-ready": "Противник не готов"
+  },
+  "ykt": {
+    "waiting-somebody": "Утараһааччы холбонорун кэтэһэбит...",
+    "waiting-enemy": "Утараһааччы бэлэм буоларын кэтэһэбит...",
+    "i-ready": "Мин бэлэммин!",
+    "enemy-ready": "Утараһааччы бэлэм",
+    "enemy-not-ready": "Утараһааччы бэлэмэ суох"
+  }
+}

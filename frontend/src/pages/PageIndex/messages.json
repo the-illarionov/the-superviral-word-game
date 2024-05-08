@@ -1,0 +1,21 @@
+{
+  "en": {
+    "start": "Start a game and invite a friend",
+    "about": "<p>Mas-wrestling is a national Yakut sport, known all over the world.</p><p class='mb-4'>For example, Arnold Schwarzenegger <a href='https://www.muscleandfitness.com/features/active -lifestyle/mas-wrestling-most-unique-sport-arnold-sports-festival/' target='_blank'>made it</a> part of the Arnold Sports Festival.</p><p class='mb-4' >In this game you will compete by making short words from big one.</p>",
+    "sound": "Music:"
+  },
+  "ru": {
+    "start": "Начать игру и пригласить друга",
+    "about": "<p>Мас-рестлинг - национальный якутский вид спорта, известный по всему миру.</p><p class='mb-4'>Например, Арнольд Шварцнеггер <a href='https://www.muscleandfitness.com/features/active-lifestyle/mas-wrestling-most-unique-sport-arnold-sports-festival/' target='_blank'>сделал его</a> частью фестиваля Arnold Sports.</p><p class='mb-4'>В этой игре вы будете соревноваться, собирая короткие слова из одного большого.</p>",
+    "sound": "Звук:",
+    "language": "Язык",
+    "thanks": "Благодарим <a href='http://alel.s-vfu.ru/' target='_blank'>международную научно-исследовательскую лабораторию «Лингвистическая экология Арктики»</a> СВФУ за предоставленный якутский словарь"
+  },
+  "ykt": {
+    "start": "Оонньууну саҕалаа, до5оргун ыҥыр",
+    "about": "<p>Мас тардыһыыта диэн саха былыргыттан күрэхтэһэр, аан дойдуга биллэр оонньуута.</p><p class='mb-4'>Бу курэҕи Арнольд Шварцнеггер бэйэтин <a href='https://www.muscleandfitness.com/features/active-lifestyle/mas-wrestling-most-unique-sport-arnold-sports-festival/' target='_blank'>Arnold Sports диэн фестивалыгар киллэрбит</a>.</p><p class='mb-4'>Бу онньууга биир улахан тылтан кыра тыллары таһаарыахтааххын.</p>",
+    "sound": "Тыас:",
+    "language": "Язык",
+    "thanks": "СВФУ аан дойдутаа5ы <a href='http://alel.s-vfu.ru/' target='_blank'>научно-исследовательскай «Лингвистическая экология Арктики» лабораториятыгар</a> сахалыы тылдьыт туhугар махтанабыт"
+  }
+}

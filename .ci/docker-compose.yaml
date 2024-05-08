@@ -1,0 +1,20 @@
+services:
+  backend:
+    image: ${NODE_IMAGE}
+    working_dir: /app
+    command: yarn dev
+    ports:
+      - ${BACKEND_PORT}:8787
+    volumes:
+      - ../backend:/app
+
+  frontend:
+    image: ${NODE_IMAGE}
+    working_dir: /app
+    command: yarn preview
+    ports:
+      - 80:80
+    depends_on:
+      - backend
+    volumes:
+      - ../frontend:/app

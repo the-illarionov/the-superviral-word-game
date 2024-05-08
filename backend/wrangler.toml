@@ -1,0 +1,13 @@
+name = "the-superviral-word-game-signaller"
+main = "src/index.ts"
+compatibility_date = "2023-10-15"
+workers_dev = false
+usage_model = "bundled"
+send_metrics = false
+compatibility_flags = [ "nodejs_compat" ]
+
+durable_objects.bindings = [ { name = "SIGNALLER", class_name = "Signaller" } ]
+
+[[migrations]]
+tag = "v1"
+new_classes = [ "Signaller" ]

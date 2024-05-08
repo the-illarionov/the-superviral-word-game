@@ -1,0 +1,34 @@
+services:
+  frontend:
+    image: ${NODE_IMAGE}
+    working_dir: /app
+    command: yarn dev
+    user: ${MY_UID}:${MY_GID}
+    ports:
+      - 80:80
+    depends_on:
+      - backend
+    volumes:
+      - ../frontend:/app
+
+  frontend-preview:
+    image: ${NODE_IMAGE}
+    working_dir: /app
+    command: yarn preview
+    user: ${MY_UID}:${MY_GID}
+    ports:
+      - 8000:80
+    depends_on:
+      - backend
+    volumes:
+      - ../frontend:/app
+
+  backend:
+    image: ${NODE_IMAGE}
+    working_dir: /app
+    command: yarn dev
+    user: ${MY_UID}:${MY_GID}
+    ports:
+      - ${BACKEND_PORT}:8787
+    volumes:
+      - ../backend:/app

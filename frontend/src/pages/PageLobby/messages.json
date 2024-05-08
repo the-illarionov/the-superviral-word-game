@@ -1,0 +1,32 @@
+{
+  "en": {
+    "oyunsky": "<p>Platon Oyunsky</p><p>Father of Yakutian literature, <a href='https://artsandculture.google.com/story/3gUBTQa-YoQcIw' target='_blank'>learn more</a></p>",
+    "kulakovsky": "<p>Aleksey Kulakovsky</p><p>Great Yakut poet and writer, <a href='https://www.wikidata.org/wiki/Q4246006' target='_blank'>learn more</a></p>",
+    "instructions": "Copy the link below and send it to your friend!",
+    "invitation-text": "Let's play \"Mas-Wrestling\", join:",
+    "copy": "Copy",
+    "share": "Share",
+    "connection-established": "The enemy has connected! Click on \"I'm ready!\" to start the game",
+    "your-name": "Enter your name:"
+  },
+  "ru": {
+    "oyunsky": "<p><a href='https://ru.wikipedia.org/wiki/%D0%9E%D0%B9%D1%83%D0%BD%D1%81%D0%BA%D0%B8%D0%B9,_%D0%9F%D0%BB%D0%B0%D1%82%D0%BE%D0%BD_%D0%90%D0%BB%D0%B5%D0%BA%D1%81%D0%B5%D0%B5%D0%B2%D0%B8%D1%87' target='_blank'>Платон Ойунский</a></p><p>Отец якутской литературы</p>",
+    "kulakovsky": "<a href='https://ru.wikipedia.org/wiki/%D0%9A%D1%83%D0%BB%D0%B0%D0%BA%D0%BE%D0%B2%D1%81%D0%BA%D0%B8%D0%B9,_%D0%90%D0%BB%D0%B5%D0%BA%D1%81%D0%B5%D0%B9_%D0%95%D0%BB%D0%B8%D1%81%D0%B5%D0%B5%D0%B2%D0%B8%D1%87' target='_blank'>Алексей Кулаковский</a></p><p>Великий якутский поэт и писатель</p>",
+    "instructions": "Скопируйте ссылку ниже и отправьте её своему другу!",
+    "invitation-text": "Сыграем в \"Мас-Рестлинг\", заходи:",
+    "copy": "Скопировать",
+    "share": "Поделиться",
+    "connection-established": "Противник подключился! Нажмите на \"Я готов!\", чтобы начать игру",
+    "your-name": "Введите ваше имя:"
+  },
+  "ykt": {
+    "oyunsky": "<p>Былатыан Ойуунускай.</p><p>Саха литературатын төрүттээччилэриттэн биирдэстэрэ</p>",
+    "kulakovsky": "<p>Өксөкүлээх Өлөксөй.</p><p>Саха улуу суруйааччыта уонна хоһоонньута.</p>",
+    "instructions": "Алларааҥҥы ссылканы копируйдаа уонна атаскар ыыт!",
+    "invitation-text": "Мас тардыһыахха, онньууга киир:",
+    "copy": "Копируйдаа",
+    "share": "Ыыт",
+    "connection-established": "Утараһааччы холбонно. Онньууну саҕалаары \"Мин бэлэммин!\" диэн баттаа",
+    "your-name": "Эн аатыҥ суруй:"
+  }
+}

@@ -1,0 +1,6 @@
+playwright-report/
+test-results/
+dist/
+.dictionaries/
+.vite-ssg-temp/
+.wrangler/

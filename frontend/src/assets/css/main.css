@@ -1,0 +1,56 @@
+@import url("./animations.css");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: "Nine By Five";
+  src: url("@/assets/fonts/NineByFiveNbp.woff2") format("woff2");
+}
+
+html,
+body {
+  touch-action: pan-y;
+  user-select: none;
+}
+
+html {
+  font-family: "Nine By Five", Arial, monospace, sans-serif;
+  font-size: 22px;
+  /* stylelint-disable */
+  text-shadow: rgb(0 0 0) 2px 0 0, rgb(0 0 0) 1.7px 1px 0, rgb(0 0 0) 1px 1.6px 0, rgb(0 0 0) 0.1px 2px 0, rgb(0 0 0) -1px 2px 0, rgb(0 0 0) -1.6px 1px 0, rgb(0 0 0) -2px 0.2px 0, rgb(0 0 0) -2px -1px 0, rgb(0 0 0) -1px -1.5px 0, rgb(0 0 0) -0.4px -2px 0, rgb(0 0 0) 0.5px -2px 0, rgb(0 0 0) 1.4px -1.4px 0, rgb(0 0 0) 2px -0.5px 0;
+  /* stylelint-enable */
+  text-transform: uppercase;
+  letter-spacing: 2px;
+
+  @apply text-white bg-black;
+}
+
+@media only screen and (height <= 500px) {
+  html {
+    overflow: visible;
+    font-size: 16px;
+  }
+}
+
+#app {
+  position: relative;
+  height: 100vh;
+}
+
+button {
+  letter-spacing: inherit;
+}
+
+a {
+  text-decoration: underline;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+.text-shadow-none {
+  text-shadow: none;
+}
