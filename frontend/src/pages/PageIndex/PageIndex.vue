@@ -75,6 +75,24 @@ useHead({
         </RouterLink>
       </FormButton>
     </div>
+
+    <div class="mb-2">
+      <FormButton>
+        <RouterLink
+          data-test="game-bot"
+          :to="{
+            name: 'PageGame',
+            query: {
+              mode: 'bot',
+            },
+          }"
+          class="no-underline"
+        >
+          {{ t('game-bot') }}
+        </RouterLink>
+      </FormButton>
+    </div>
+
     <div
       class="flex
           justify-center
