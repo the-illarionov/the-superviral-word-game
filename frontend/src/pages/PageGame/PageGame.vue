@@ -1,5 +1,5 @@
 <script setup lang='ts'>
-import { computed } from 'vue'
+import { computed, onBeforeUnmount } from 'vue'
 import PageGameCountdown from './components/PageGameCountdown.vue'
 import { useCheckConditions } from './composables/useCheckConditions'
 import PageGamePlayer from './components/PageGamePlayer.vue'
@@ -21,6 +21,12 @@ const isHost = computed(() => machineGame.snapshot.value.context.myMode === 'hos
 const isGuest = computed(() => machineGame.snapshot.value.context.myMode === 'guest')
 const playerHost = computed(() => isHost.value ? machineGame.snapshot.value.context.me : machineGame.snapshot.value.context.enemy)
 const playerGuest = computed(() => isGuest.value ? machineGame.snapshot.value.context.me : machineGame.snapshot.value.context.enemy)
+
+onBeforeUnmount(() => {
+  machineGame.send({
+    type: 'Sleep',
+  })
+})
 </script>
 
 <template>
