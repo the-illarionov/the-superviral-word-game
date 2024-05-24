@@ -72,6 +72,13 @@ export type MachineGameEvent =
   } | {
     type: 'I not validated enemy word'
     word: string
+  } |
+
+  //
+  //
+  // BOT LOGIC
+  {
+    type: 'Bot guessed word'
   }
 
 export type MachineGameContext = {

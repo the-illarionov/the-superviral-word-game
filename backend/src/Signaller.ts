@@ -345,7 +345,7 @@ function generateId(db: Db) {
   const sessionId = randomBytes(6).toString('base64url')
 
   if (db.find(sessionId))
-    generateId(db)
+    return generateId(db)
 
   return sessionId
 }

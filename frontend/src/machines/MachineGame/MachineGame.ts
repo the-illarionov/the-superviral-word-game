@@ -10,6 +10,8 @@ import type { MachineGameContext, MachineGameEvent } from './types'
 import type { Scores } from '@/components/PlayerScores/types'
 import { useAssert } from '@/composables/useAssert'
 import { DEBUG_GAME, DEBUG_INSPECTOR, DEFAULT_LOCALE } from '@/composables/useConstants'
+import { useRandomInRange } from '@/composables/useRandomInRange'
+import { useFindPossibleWords } from '@/composables/useFindPossibleWords'
 
 const COUNTDOWN_TIMEOUT = 4000
 const VALIDATION_ERROR_TIMEOUT = 1500
@@ -36,6 +38,9 @@ class Player {
     this.id = id
   }
 }
+
+let botTimeoutId = 0
+let botWords: string[] = []
 
 const MachineGame = setup({
   types: {} as {
@@ -475,10 +480,41 @@ const MachineGame = setup({
         word: event.word,
       })
     },
+
+    botGeneratesPossibleWords({ context }) {
+      const allWords = useFindPossibleWords(context.mainWord, machineDictionary.snapshot.value.context.dictionaries[context.locale].words)
+
+      const fraction = ~~(allWords.length / 10)
+
+      botWords = allWords.slice(fraction, fraction * 2)
+
+      console.log('botGeneratesPossibleWords', botWords)
+    },
+
+    botGuessesWord({ context }) {
+      clearTimeout(botTimeoutId)
+      const timeout = ~~useRandomInRange(3000, 5000)
+
+      botTimeoutId = setTimeout(() => {
+        const word = botPicksWord(botWords, context)
+
+        if (word) {
+          send({
+            type: 'I validated enemy word',
+            word,
+          })
+        }
+
+        send({
+          type: 'Bot guessed word',
+        })
+      }, timeout)
+    },
   },
   guards: {
     DEBUG_GAME: () => DEBUG_GAME,
     isHost: ({ context }) => context.myMode === 'host',
+    isModeBot,
   },
   delays: {
     COUNTDOWN_TIMEOUT,
@@ -487,7 +523,7 @@ const MachineGame = setup({
     WORD_RESTRICTION_TIMEOUT: () => MAIN_WORD_REFRESH_TIMEOUT - 500,
   },
 }).createMachine({
-  /** @xstate-layout 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-DGGcC61J2lhW9A9WKnG+MfVq1KiG1yv4-mlv1hW2lYbGYLxTBoC0uxnD5E1NFA5nKyDbmqW4XYloVJI2SYI+8TBYDsEfhVdiExxBYDcmwaEmq51YH1fnYWugNB20SoYIo6FnDai3NGnwahlRtocNoHNkRJ3TpXSMBd+al3iFgPe+dmB10aIzL21pDwfA4XCg0h2sMYGuBVHAiSKpj7IzHfyCdU7+42VnQ+zAxDSF+gjsiQY1NP2IDhjhA8+QjiVMKMqVQ2pdgyXgihPC6YRK6ECFebWEA4CyBg6QMMoKoKnA2NqU4ZosIKWMJaLQRgdDixHafO0cR6CcfnoAw9Dt+ZN0k+lWDYA5MAN+uFThrTY1lA9muJNSnmnmkXuucKJRoOjpsf8QUDVRTQlhCwJm4awXqiLnpm2BmajMu1HDS41xDS6C3MaUS17rkgk07Q02ds9SwxVMDD29sqibBkrRk125hZibthFtuOk3H0SiwzLjgDEpUdBqeWoagTDrjQpR418NjAmsdXcPLF8Ma+MstFiNjtfAA0S6qZL5GHZlFtZaE1sDEroRU8RNTtnIvozyiU7GD9EMVVIFVEpuketgouNuAbQMhuVcrmUY1KhWmtIdeuWbJ95s9MW7LTrK2TqStjhtuy8rtu3XpBAGgu31mvD1PBKrcEXBmkU1Ubz2wJuHBtmXazUmFv5blu+F7Zk+5So+1to6fRboAnqqTb+qquo9T6oMAH9Kjg728OFdtlpambyqMqLYNdrgXdqGZ9rOLlu4+xt6mZROdslfk79FQtRhLPGp+Yo4MUGE+GCjhU0BpEZzclg9lHHd8GOXEZTg1ORHBibNGeNcR4RtVDGy7XRQsXCoqvap9XVzNeiIIeIiVMcB7P1frpeAIutN0JaXkG4PhzQpTqw7KuB5Td12lxJbnNytfSJ7jgvBSffdz39+sfIMlj0GBKGeGrRjMKgxUEDPw8FVQSbVz7bFaSMmOOca4+WeSPF5zcwvHIK5ri7E1HAtwds0IlBXC00TLxrjmkR-dp3-t69ZKb2jo6rfcBFMDCUvXAe8Krh7zbYw-erXM5Z2mW4il9HuHKPH7Ss-G85Ob4vgpy-vG4Fxn0NffuYvRgMM7MTagQaCQhfvpQQ-BSE-NwM-KvO7R3WvHKEVQZMVdfWLMTPIFrUGTYYwfZZne4RwXQLmIzM8RKNcC-JbQtYZcVR5YlF5UlN5D5BOeAwAwSJA6jQSO2VCa1TYPIMBS0YPMfSfSAwVPNd1UVEg2g7IdwRldwZUW4B4I0AA7IZ4Qjc8VFO4E0e4QgqifNYgkZNbLHSeWVKqRVZ+f5EnNvRtelIGRwGGIoFUNpIoLcKSfcO1G4fQB4FwcxVQ0ZAQ2Akg4tFWUlctDVA6YQxuFcBwOuTQZSdtHwKSCSY1AoU5dtE8LQF4CLeDO9ZDd9YQ3QNQdgxLRufIdtIxKjUxBwCxNpRKRjfwIAA */
+  /** @xstate-layout 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-DGGcC61J2lhW9A9WKnG+MfVq1KiG1yv4-mlv1hW2lYbGYLxTBoC0uxnD5E1NFA5nKyDbmqW4XYloVJI2SYI112kABCOsgLCBDugLxKj0DsAatgNEvQDLTuIMICAMR9X5wzeoGNhgijXCAcmO4mEzGN2PSivQObelpKnX0Kgs7nFkCfb0JRvQ6AywYB+weL9h6+QbaCheWg9SCXNKYE11wDDODQiay4SVNAPFuFzA097rmTunS+ud77p0DB6iiWA37RBiAMjQXSqc92m3yJhPClq2ltLjZvKoJoTT6nMbcG4ORuWYaYLAZd-cbLsQmOILAbk2DQk1WJrANHEDC10BoO2iUb3oXgw7Lc0afBqGVG2hw2h+OCcfhVUTIwJP5qk+IEjZnxOYHkwgYWDDPBtMeJ08KDSHawxga4FUcCJIqmPsjMd-IBNCalaZn55nMDENIX6COyJBjUwc3DHCB58hHEqYUZUqhtS7BkvBFCeF0wiV0IEK82sd3wGSMF0gYZQP8VOBsbUpwzRYTTbhaFtREbEXSnaOI9B6vz0ARpqo-Mm4jtPiFsAQ2AG-XCpw1psaygezXEmh2wDDyZb84ee4mGAT1VKqKaEsIWBM3DWC9URcls2xWzUZl2o4aXGuIaXQW5jSiUw23WbtDTZ2z1LDFUwMPb2yqJsGSxWwpni26qL7F8MZ-gYlAH7EboJpeUroIwtQ1AmHXGhfLxr4bGBNY6u4cOcV5RKZZFHYKdlCUB0DVUIPcuafgtsS0ZojRmhwuFcnNyEdU5OpK2OFVSBVRKbpGn6yDSOAZ8D0GLOqiu2NRznQykY35GzZNvrNiH05QF0dQqZk+4RYuldQ3tV6QQBoFL+lrw9TwVPDcE1LhudQPCuz53hobZlyC6O3XWH0aU8N9jB+wnRd2XlRL26B37oG11e9Pqgxbe-QuHhJw3hwrtstLU1jSglsHldhaeCtRzTDt65LHpgfZYG6xtpb1MzSYYxT-u2pwlnhHHQmnmKDCfDBRwqaA0PWT466r23ERncxFYJb+sHIsvndnjXEeRXiAyiYVObo5SRRhZdO15Xq54-L6T4IeIiVMcB7P1flRmf0YWl5AX+aFKeOHZV0L7XFDnf7d85yh3fBjlT84J4LSJwA37VD5AyRaYGAlBng45GKXre5Ax+DwSqjix74+zYppIZKOLOKuLyx5IeJ5wXYLw5ArjXC7CahwJuB2xoQlArjQYmrtqtK6AXDf5PhYFZK4Hvj4EFK4BFKBglKgFcbPYxoGg2zGBUFWpVAXCtJphoabhuDuDlCsFUTsE4E5J4FHQEG8HeK4C4x9ACEMwNYGoGDOxY5qAgyCQQqSFKDKjr5yFGgKEPCoEV7oGCr64FqirDLiCgE7IA4k6gybDGD7JSH3COC6AFB+CgwYTtrKE6SFpeGjJErPKlQJ4fIJw+EZp5D+GCR2yoTWqbB5BgKWjO4vDXCxH5rxEjA+HuCMruDKi3APBGjWHZDPDpaJRA6WhwzOEj774YF5ruqeEjJh6m4VryqKrPz-Kqq0JEH0pAyOAwxFAqiuZNFST7h2o3D6APAuDmLlEDGDJFoN6krloaoHSCHrgrgOB1woYbBnh57ZDrh6i3CuAa4nhaAvCxEfq4bOI+Ewz06Azy6g5KCISwQ1CO4PC6CgIfE4avrzo4ITLhafprobp9Bbo7oZHbgAxA5M4K7npHAaDoSGBbgYqO5QnPown4Z9Bfo-poI+Foa9owQ46ahczGC4kyQlCgy6BwygJ+5TYB7j6fHkn-oyrDCjAkapDkaUYpw+E4QwKmAWiGCIRGijbRglBskEmclAxFASRGYInnS2ZYCgG6BqCFFA6Nya53GnIFamIOAWJtKJTlb+BAA */
   /** @xstate-layout  */
   id: 'MachineGame',
 
@@ -715,6 +751,36 @@ const MachineGame = setup({
 
               initial: 'Waiting for enemy to request validation',
             },
+
+            'Bot logic': {
+              states: {
+                'Checking if bot mode': {
+                  always: {
+                    target: 'Bot generates possible words',
+                    guard: 'isModeBot',
+                    reenter: true,
+                  },
+                },
+
+                'Bot is playing': {
+                  entry: 'botGuessesWord',
+
+                  on: {
+                    'Bot guessed word': {
+                      target: 'Bot is playing',
+                      reenter: true,
+                    },
+                  },
+                },
+
+                'Bot generates possible words': {
+                  always: 'Bot is playing',
+                  entry: ['botGeneratesPossibleWords', 'assignEnemyWantRematchTrue'],
+                },
+              },
+
+              initial: 'Checking if bot mode',
+            },
           },
 
           after: {
@@ -793,6 +859,33 @@ function validateWord(word: string, context: MachineGameContext): WordValidation
   }
 
   return errorReason
+}
+
+function isModeBot() {
+  const mode = new URL(document.location.href).searchParams.get('mode')
+  return mode === 'bot'
+}
+
+let botTriesCount = 0
+function botPicksWord(words: string[], context: MachineGameContext): string {
+  const word = words[~~useRandomInRange(0, words.length - 1)]
+
+  const errorReason = validateWord(word, context)
+
+  if (botTriesCount < 5) {
+    if (errorReason) {
+      botTriesCount++
+      return botPicksWord(words, context)
+    }
+
+    else {
+      botTriesCount = 0
+      return word
+    }
+  }
+  else {
+    return ''
+  }
 }
 
 const snapshot = shallowRef(getInitialSnapshot(MachineGame))

@@ -2,6 +2,7 @@ import { test as base, expect } from '@playwright/test'
 import type { Browser, Page } from '@playwright/test'
 import { setup } from 'xstate'
 import { createTestModel } from '@xstate/test'
+import { useFindPossibleWords } from '../src/composables/useFindPossibleWords'
 import type { MachineUserFlowEvent } from './types'
 
 const MachineUserFlow = setup({
@@ -377,7 +378,7 @@ testPaths.forEach((path) => {
 
           const mainWord = await hostPage.evaluate(() => window.___e2e.mainWord)
 
-          const possibleWords = findPossibleWords(mainWord, words)
+          const possibleWords = useFindPossibleWords(mainWord!, words)
 
           let guestGuesses = 0
 
@@ -459,7 +460,7 @@ testPaths.forEach((path) => {
 
           const mainWord = await hostPage.evaluate(() => window.___e2e.mainWord)
 
-          const possibleWords = findPossibleWords(mainWord, words)
+          const possibleWords = useFindPossibleWords(mainWord!, words)
 
           const wordCounts = {
             low: 0,
@@ -514,30 +515,3 @@ testPaths.forEach((path) => {
     })
   })
 })
-
-function findPossibleWords(randomWord, wordList) {
-  const possibleWords: string[] = []
-
-  function canFormWord(word, randomWord) {
-    const letterCount = {}
-
-    for (const letter of randomWord)
-      letterCount[letter] = (letterCount[letter] || 0) + 1
-
-    for (const letter of word) {
-      if (!letterCount[letter])
-        return false
-
-      letterCount[letter] -= 1
-    }
-
-    return true
-  }
-
-  for (const word of wordList) {
-    if (canFormWord(word, randomWord))
-      possibleWords.push(word)
-  }
-
-  return possibleWords
-}
