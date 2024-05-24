@@ -183,7 +183,8 @@ useHead({
         </p>
         <FormInput
           v-model="invitationText"
-          class="mb-2
+          class="!normal-case
+              mb-2
               px-4
               text-shadow-none"
           readonly
@@ -192,14 +193,6 @@ useHead({
 
         <div class="mb-4">
           <FormButton
-            v-if="canShare"
-            @click="share"
-          >
-            {{ t("share") }}
-          </FormButton>
-
-          <FormButton
-            v-else
             data-test="copy-invitation"
             class="relative"
             @click="copy"
@@ -212,6 +205,15 @@ useHead({
               :class="$style.checkmark"
             >
           </FormButton>
+
+          <div
+            v-if="canShare"
+            class="pt-4"
+          >
+            <FormButton @click="share">
+              {{ t("share") }}
+            </FormButton>
+          </div>
         </div>
       </div>
     </div>

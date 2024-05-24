@@ -111,7 +111,22 @@ useHead({
 
   <!-- POPUPS -->
   <LayoutCenter :class="$style.portrait">
-    {{ i18n.t('portrait') }}
+    <div>
+      {{ i18n.t('portrait') }}
+      <div>
+        <div
+          class="mt-4
+              mx-auto
+              w-[50px]"
+        >
+          <img
+            class="block
+                w-full"
+            src="/img/rotate.svg"
+          >
+        </div>
+      </div>
+    </div>
   </LayoutCenter>
 
   <ModalComponent

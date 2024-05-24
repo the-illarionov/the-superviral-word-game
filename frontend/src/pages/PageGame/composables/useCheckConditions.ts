@@ -10,7 +10,7 @@ export function useCheckConditions() {
         machineGame.send({
           type: 'Awake',
           myMode: 'host',
-          locale: DEFAULT_LOCALE,
+          locale: 'ykt',
           myName: 'me',
           enemyName: 'enemy',
           enemyId: 'enemyId',

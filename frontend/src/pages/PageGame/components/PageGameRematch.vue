@@ -4,6 +4,7 @@ import messages from '../messages.json'
 import LiquidBg from '@/components/LiquidBg/LiquidBg.vue'
 import ReadyButton from '@/components/ReadyButton/ReadyButton.vue'
 import { machineGame } from '@/machines/MachineGame/MachineGame'
+import FormButton from '@/components/FormButton/FormButton.vue'
 
 const { t } = useI18n({ messages, useScope: 'global' })
 
@@ -66,6 +67,11 @@ function sendIWantRematch() {
             />
           </div>
         </div>
+      </div>
+      <div class="my-2">
+        <FormButton @click="$router.push({ name: 'PageIndex' })">
+          {{ t('go-to-menu') }}
+        </FormButton>
       </div>
     </LiquidBg>
   </div>
