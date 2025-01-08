@@ -8,7 +8,7 @@ export interface Env {
 
 const allowedOrigins = [
   'https://the-superviral-word-game.com',
-  'https://illarionov.school',
+  'https://illarionov-school.ru',
 ]
 
 export default {
